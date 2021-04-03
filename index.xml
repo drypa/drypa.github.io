@@ -1,0 +1,17 @@
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Andrey Krasavin Home Page on Andrey Krasavin Home Page</title>
+		<link>https://drypa.github.io/</link>
+		<description>Recent content in Andrey Krasavin Home Page </description>
+		<generator>Hugo -- gohugo.io</generator>
+		
+  		<language>ru-ru</language>
+		
+		<managingEditor>Page(&#34;Andrey Krasavin Home Page&#34;) (Andrey Krasavin)</managingEditor>
+    	
+  		<lastBuildDate>Sat, 03 Apr 2021 16:06:29 +0300</lastBuildDate>
+		
+		<atom:link href="/" rel="self" type="application/rss+xml" />
+		
+	</channel>
+</rss>
