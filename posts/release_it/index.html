@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="ru-ru">
+  <head>
+    <meta charset="utf-8" />
+<title>Заметки по Nygard M.T. - Release It!</title>
+
+
+  
+
+
+  
+  <script data-goatcounter="https://drypa.github.io/count"
+          async src="//drypa.github.io/count.js"></script>
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://drypa.github.io/index.xml"
+  title="Andrey Krasavin Home Page"
+/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Заметки по Nygard M.T. - Release It!"/>
+<meta name="twitter:description" content="Release It!: Design and Deploy Production-Ready Software (Pragmatic Programmers)  Прочитана в апреле 2018г.
+ Design and architecture decisions are also financial decisions.
+Manage perceptions after a incident Is as important as managing the incident itself.
+A highly stable design usually costs the same to implement as an unstable one.
+Every integration point will fail in some way.
+Блокировки потоков из пула могут приводить к дедлокам. Желательно новые библиотеки тестировать в несколько потоков, что бы можно было бороться с проблемами в библиотеке снаружи."/>
+
+
+
+<link rel="stylesheet" href="https://drypa.github.io/fontawesome/css/all.min.css" />
+
+<link
+  id="dark-mode-theme"
+  rel="stylesheet"
+  href="https://drypa.github.io/css/dark.css"
+/>
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+<script src="https://drypa.github.io/js/main.bundle.js"></script>
+<script src="https://drypa.github.io/js/instantpage.min.js" type="module" defer></script>
+<meta name="generator" content="Hugo 0.80.0" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+  <header>
+    <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://drypa.github.io/" class="nav-logo">
+        <img
+          src="https://drypa.github.io/images/icon.png"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/tags" id="Tags"
+              ><em class="fas fa-tag fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/categories" id="Category"
+              ><em class="fas fa-folder-open fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+    <div class="intro-header">
+      <div class="container">
+        <div class="posts-heading">
+          
+            <h1>
+              Заметки по Nygard M.T. - Release It!
+            </h1>
+          
+          
+        </div>
+      </div>
+    </div>
+  </header>
+  
+
+    
+  <div class="container" role="main">
+    <article class="article" class="blog-post">
+      
+  <h1 id="release-it-design-and-deploy-production-ready-software-pragmatic-programmers">Release It!: Design and Deploy Production-Ready Software (Pragmatic Programmers)</h1>
+<blockquote>
+<p>Прочитана в апреле 2018г.</p>
+</blockquote>
+<p>Design and architecture decisions are also financial decisions.</p>
+<p>Manage perceptions after a incident Is as important as managing the incident itself.</p>
+<p>A highly stable design usually costs the same to implement as an unstable one.</p>
+<p>Every integration point will fail in some way.</p>
+<p>Блокировки потоков из пула могут приводить к дедлокам. Желательно новые библиотеки тестировать в несколько потоков, что бы можно было бороться с проблемами в библиотеке снаружи. А также определить есть-ли в библиотеке лимит по одновременному обращению.</p>
+<p>Examine production environment to test to full-sized environment.</p>
+<p>Watch out point-to-point communication.</p>
+<p>Watch out shared resources. You need stress test it heavily. And be sure its clients will keep working if shared resource gets slow or locks up.</p>
+<p>If you can&rsquo;t build bottleneck large enough  to meet potentially overwhelming demand from other system part, then you must build both to be resilient.</p>
+<p>Your system is resilient if it slow down or even fail fast if it can&rsquo;t  process transaction within the allowed time, but it should recover once the load goes down</p>
+<h3 id="stability">Stability</h3>
+<ul>
+<li>
+<p>use timeouts(apply to each integration point)</p>
+</li>
+<li>
+<p>circuit breaker</p>
+</li>
+<li>
+<p>bulkheads</p>
+</li>
+<li>
+<p>Mission-critical service might be implemented as independent servers You must examine the impact to the business of each poss of capability and cross-reference those impacts against architecture</p>
+</li>
+<li>
+<p>The Steady state pattern- for every mechanism that accumulates a resource, some other mechanism must recycle that resource</p>
+</li>
+<li>
+<p>Fail Fast</p>
+</li>
+<li>
+<p>Decoupling Middleware
+Least recently used(LRU) algorithm for caching</p>
+</li>
+</ul>
+<h3 id="capacity">Capacity</h3>
+<ul>
+<li>Always look at multiplier effects that will dominate costs</li>
+<li>Understand effects that one layer has to another</li>
+<li>Do most work when nobody is waiting for it</li>
+<li>Place safety limits on everything</li>
+<li>Monitor capacity continuously
+Уменьшение количества handcrafted sql так как разработчики будут добавлять лишние джойны, и искать не по индексированных полям - facepalm</li>
+</ul>
+<p>The OLTP schema is not good for data warehousing.</p>
+<p>Don&rsquo;t mix transactions and reporting</p>
+<h3 id="network">Network</h3>
+<p>Keep in mind that there are multihomed(with multiply network interfaces).
+для бэкапирования канала, разделения интерфейсов под разные задачи, обеспечения безопасности,</p>
+<h3 id="availability">Availability</h3>
+<p>Each “9” of availability increases the implementation cost by about a factor of ten and the operational cost per year by about a factor of two.
+Building systems for horizontal scaling automatically implies some form of load balancing.</p>
+<h3 id="administration">Administration</h3>
+<p>The best interface for administrating many servers/services is console</p>
+
+
+
+
+      
+    </article>
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="link%20to%20social%20media" name="name of social media">
+        <em class="A icon from https://fontawesome.com/"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://drypa.github.io/about">Andrey Krasavin</a>
+      &nbsp;&copy;
+      2021
+      
+        &nbsp;/&nbsp;
+        <a href="https://drypa.github.io/">Andrey Krasavin Home Page</a>
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+       <a href="https://gohugo.io">Hugo</a>&nbsp;
+      
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>
