@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="ru-ru">
+  <head>
+    <meta charset="utf-8" />
+<title>Заметки по статье The Perils of Event-Driven: Eventual Consistency</title>
+
+
+  
+
+
+  
+  <script data-goatcounter="https://drypa.github.io/count"
+          async src="//drypa.github.io/count.js"></script>
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://drypa.github.io/index.xml"
+  title="Andrey Krasavin Home Page"
+/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Заметки по статье The Perils of Event-Driven: Eventual Consistency"/>
+<meta name="twitter:description" content="The Perils of Event-Driven: Eventual Consistency Ссылка на оригинальную статью
+ Прочитана в феврале 2021г.
+ The first step for dealing with eventual consistency is not dealing with it at all.
+Перед применением сядь с бизнесом и определи какие именно данные могут быть немного не актуальными и допустимо-ли eventual consistency в принципе
+Также нужно выяснить кто ещё будет потреблять информацию - если какой-то сервис потребляет eventual consistency информацию предоставляемую рассматриваемым сервисом, то не будет-ли для потребителя это вести к ошибкам"/>
+
+
+
+<link rel="stylesheet" href="https://drypa.github.io/fontawesome/css/all.min.css" />
+
+<link
+  id="dark-mode-theme"
+  rel="stylesheet"
+  href="https://drypa.github.io/css/dark.css"
+/>
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+<script src="https://drypa.github.io/js/main.bundle.js"></script>
+<script src="https://drypa.github.io/js/instantpage.min.js" type="module" defer></script>
+<meta name="generator" content="Hugo 0.80.0" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+  <header>
+    <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://drypa.github.io/" class="nav-logo">
+        <img
+          src="https://drypa.github.io/images/icon.png"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/tags" id="Tags"
+              ><em class="fas fa-tag fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/categories" id="Category"
+              ><em class="fas fa-folder-open fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+    <div class="intro-header">
+      <div class="container">
+        <div class="posts-heading">
+          
+            <h1>
+              Заметки по статье The Perils of Event-Driven: Eventual Consistency
+            </h1>
+          
+          
+        </div>
+      </div>
+    </div>
+  </header>
+  
+
+    
+  <div class="container" role="main">
+    <article class="article" class="blog-post">
+      
+  <h1 id="the-perils-of-event-driven-eventual-consistency">The Perils of Event-Driven: Eventual Consistency</h1>
+<p><a href="https://medium.com/swlh/handling-eventual-consistency-11324324aec4">Ссылка на оригинальную статью</a></p>
+<blockquote>
+<p>Прочитана в феврале 2021г.</p>
+</blockquote>
+<p>The first step for dealing with eventual consistency is not dealing with it at all.</p>
+<p>Перед применением сядь с бизнесом и определи какие именно данные могут быть немного не актуальными и допустимо-ли eventual consistency в принципе</p>
+<p>Также нужно выяснить кто ещё будет потреблять информацию - если какой-то сервис потребляет  eventual consistency информацию предоставляемую рассматриваемым сервисом, то не будет-ли для потребителя это вести к ошибкам</p>
+<p>Но всё равно когда продукт становится крупнее приходится прибегать к  eventual consistency модели
+It’s not eventual if nobody notices</p>
+<p>нужно делать лаг минимально возможным и расчитывать на пиковую нагрузку(смотреть какой максимальный лаг будет на максимуме нагрузки на систему)</p>
+<h2 id="event-driven-архитектура-как-вариант-eventual-consistency-архитектуры">Event-driven архитектура как вариант eventual consistency архитектуры</h2>
+<p>event-driven подразумевает наличие асинхронных очередей событий между сервисами и различается по тому, как publisher и subscriber работают с событиями</p>
+<h3 id="варианты">Варианты:</h3>
+<h3 id="глашатайtown-crier-events">Глашатай(Town Crier Events)</h3>
+<p>publisher  нотифицирует что событие произошло, при этом в событие помещается минимум данных, все необходимые данные subscriber сможет запросить запросом к соответствующему API</p>
+<p><strong>pros:</strong> самый простой, клиент может не хранить у себя состояние, раз ему всё равно нужно запрашивать</p>
+<p><strong>cons:</strong> не эффективно делать ещё доп запросы, особенно на большой нагрузке это может быть губительно</p>
+<h3 id="опылениеbee-events">Опыление(Bee Events)</h3>
+<p>Когда получатель по полученным событиям у себя строит и актуализирует модель представления</p>
+<p><strong>pros:</strong> быстрее чем запрашивать нужные данные по событию, и не требует дополнительного связывания сервисов</p>
+<p><strong>cons:</strong> Получается что у каждого есть копия нужных ему данных(могут возникнуть расхождения)</p>
+<h3 id="denormalized-event-schema">Denormalized Event Schema</h3>
+<p>Отправитель знает какие данные нужны всем получателям события и наполняет событие всеми нужными данными.</p>
+<p>В Идеальном случае в событие попадает полностью весь Агрегат(в терминах DDD)</p>
+<h2 id="паттерны-которые-можно-применять">Паттерны, которые можно применять</h2>
+<p><strong>Fake strong consistency</strong> - отображать на UI изменения сделанные командой до завершения обработки команды. а сразу
+<strong>Poll the read model</strong> - вместо того, чтобы пуллить изменения частей UI можно уведомлять заинтересованные стороны по необходимости
+<strong>Block until changes are done</strong> - на мой взгляд не вариант, тут нужно гарантировать что UI когда-то разблочится в случае ошибок</p>
+
+
+
+
+      
+    </article>
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="link%20to%20social%20media" name="name of social media">
+        <em class="A icon from https://fontawesome.com/"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://drypa.github.io/about">Andrey Krasavin</a>
+      &nbsp;&copy;
+      2021
+      
+        &nbsp;/&nbsp;
+        <a href="https://drypa.github.io/">Andrey Krasavin Home Page</a>
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+       <a href="https://gohugo.io">Hugo</a>&nbsp;
+      
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>
