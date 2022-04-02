@@ -3,12 +3,18 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://drypa.github.io/</loc>
-    <lastmod>2022-03-13T23:06:29+03:00</lastmod>
+    <lastmod>2022-04-02T23:17:58+03:00</lastmod>
   </url><url>
-    <loc>https://drypa.github.io/posts/dba1-postgresql-administration/</loc>
-    <lastmod>2022-03-13T23:06:29+03:00</lastmod>
+    <loc>https://drypa.github.io/posts/cloud-design-patterns/</loc>
+    <lastmod>2022-04-02T23:17:58+03:00</lastmod>
   </url><url>
     <loc>https://drypa.github.io/posts/</loc>
+    <lastmod>2022-04-02T23:17:58+03:00</lastmod>
+  </url><url>
+    <loc>https://drypa.github.io/posts/postgresql-worst-practices/</loc>
+    <lastmod>2022-04-02T23:06:34+03:00</lastmod>
+  </url><url>
+    <loc>https://drypa.github.io/posts/dba1-postgresql-administration/</loc>
     <lastmod>2022-03-13T23:06:29+03:00</lastmod>
   </url><url>
     <loc>https://drypa.github.io/posts/the_perils_of_event_driven/</loc>

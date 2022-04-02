@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="ru-ru">
+  <head>
+    <meta charset="utf-8" />
+<title>PostgreSQL worst practices / Илья Космодемьянский (Data Egret)</title>
+
+
+  
+
+
+  
+  <script data-goatcounter="https://drypa.github.io/count"
+          async src="//drypa.github.io/count.js"></script>
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://drypa.github.io/index.xml"
+  title="Andrey Krasavin Home Page"
+/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="PostgreSQL worst practices / Илья Космодемьянский (Data Egret)"/>
+<meta name="twitter:description" content="PostgreSQL worst practices / Илья Космодемьянский (Data Egret) Ссылка видео
+ Смотрел в феврале 2019г.
+  Count(*) вам очень нужен, вам нужно 100500 счётчиков на странице, такой запрос простой и лёгкий для базы, приблизительная оценка из pg_catalog не точна Используйте ORM(вы-ж каждый день переключаетесь между СУБД, хранимки - скучно) Join-ам в базе не место(джойним на клиенте) schema-less рулит(id bigserial, extra jsonb) гибкость EAV(entity, attibute, value) - 3 таблички =&gt; 4(type) =&gt; назвать ядром и обернуть тысячами материализованных представлений много индексов использовать реплику вместо бэкапа использовать pg_dump вместо pg_basebackup а лучше свой бэкапный скрипт &#43; сторонний софт не делайте тестовых восстановлений выключить autovacuum некогда не архивировать старые time series данные, сначала вставляем диски потом партиционируем не используйте slony мастер и реплика должны жить на разном железе и быть настроены по разному синхронная реплика в другой ДЦ - для отказоустойчивости никогда не использовать Foreign Keys самый правильный тип данных - text(конвертация текста в даты или Ip) самим написать патч для Postgres и сразу в продакшен Postgres любит длинные транзакции(например ходить во внешний сервис) Любые проблемы можно решить с помощью контейнеров Писать свои штуки( хранимки на C, свою очередь сообщений, свою ORM на plpgsql) не использовать exceptions(вместо них raise notice) а лучше suppress max_connections = 1000 и никогда не использовать pg_bouncer начинать настраивать с настроек оптимизатора(postgresql."/>
+
+
+
+<link rel="stylesheet" href="https://drypa.github.io/fontawesome/css/all.min.css" />
+
+<link
+  id="dark-mode-theme"
+  rel="stylesheet"
+  href="https://drypa.github.io/css/dark.css"
+/>
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+<script src="https://drypa.github.io/js/main.bundle.js"></script>
+<script src="https://drypa.github.io/js/instantpage.min.js" type="module" defer></script>
+<meta name="generator" content="Hugo 0.96.0" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+  <header>
+    <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://drypa.github.io/" class="nav-logo">
+        <img
+          src="https://drypa.github.io/images/icon.png"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/tags" id="Tags"
+              ><em class="fas fa-tag fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/categories" id="Category"
+              ><em class="fas fa-folder-open fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+    <div class="intro-header">
+      <div class="container">
+        <div class="posts-heading">
+          
+            <h1>
+              PostgreSQL worst practices / Илья Космодемьянский (Data Egret)
+            </h1>
+          
+          
+        </div>
+      </div>
+    </div>
+  </header>
+  
+
+    
+  <div class="container" role="main">
+    <article class="article" class="blog-post">
+      
+  <h1 id="postgresql-worst-practices--илья-космодемьянский-data-egret">PostgreSQL worst practices / Илья Космодемьянский (Data Egret)</h1>
+<p><a href="https://medium.com/swlh/handling-eventual-consistency-11324324aec4">Ссылка видео</a></p>
+<blockquote>
+<p>Смотрел в феврале 2019г.</p>
+</blockquote>
+<ul>
+<li>Count(*) вам очень нужен, вам нужно 100500 счётчиков на странице, такой запрос простой и лёгкий для базы, приблизительная оценка из pg_catalog не точна</li>
+<li>Используйте ORM(вы-ж каждый день переключаетесь между СУБД, хранимки - скучно)</li>
+<li>Join-ам в базе не место(джойним на клиенте)</li>
+<li>schema-less рулит(id bigserial, extra jsonb)</li>
+<li>гибкость EAV(entity, attibute, value) - 3 таблички =&gt; 4(type) =&gt; назвать ядром и обернуть тысячами материализованных представлений</li>
+<li>много индексов</li>
+<li>использовать реплику вместо бэкапа</li>
+<li>использовать pg_dump вместо pg_basebackup а лучше свой бэкапный скрипт + сторонний софт</li>
+<li>не делайте тестовых восстановлений</li>
+<li>выключить autovacuum</li>
+<li>некогда не архивировать старые time series данные, сначала вставляем диски потом партиционируем</li>
+<li>не используйте slony</li>
+<li>мастер и реплика должны жить на разном железе и быть настроены по разному</li>
+<li>синхронная реплика в другой ДЦ - для отказоустойчивости</li>
+<li>никогда не использовать Foreign Keys</li>
+<li>самый правильный тип данных - text(конвертация текста в даты или Ip)</li>
+<li>самим написать патч для Postgres и сразу в продакшен</li>
+<li>Postgres любит длинные транзакции(например ходить во внешний сервис)</li>
+<li>Любые проблемы можно решить с помощью контейнеров</li>
+<li>Писать свои штуки( хранимки на C, свою очередь сообщений, свою ORM на plpgsql)</li>
+<li>не использовать exceptions(вместо них raise notice) а лучше suppress</li>
+<li>max_connections = 1000 и никогда не использовать pg_bouncer</li>
+<li>начинать настраивать с настроек оптимизатора(postgresql.conf) забыть про shared_buffers &amp; checkpoint &amp; genreic query optimizer</li>
+<li>не использовать графический мониторинг</li>
+<li>при загрузке данных никогда не использовать COPY</li>
+<li>мастер и реплику держать на одной железке</li>
+</ul>
+
+
+
+
+      
+    </article>
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="link%20to%20social%20media" name="name of social media">
+        <em class="A icon from https://fontawesome.com/"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://drypa.github.io/about">Andrey Krasavin</a>
+      &nbsp;&copy;
+      2022
+      
+        &nbsp;/&nbsp;
+        <a href="https://drypa.github.io/">Andrey Krasavin Home Page</a>
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+       <a href="https://gohugo.io">Hugo</a>&nbsp;
+      
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>

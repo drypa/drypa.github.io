@@ -47,7 +47,7 @@
 
 <script src="https://drypa.github.io/js/main.bundle.js"></script>
 <script src="https://drypa.github.io/js/instantpage.min.js" type="module" defer></script>
-<meta name="generator" content="Hugo 0.94.0" />
+<meta name="generator" content="Hugo 0.96.0" />
   </head>
   <body>
     
@@ -140,6 +140,60 @@
 
       
         <article class="post-preview">
+  <a href="https://drypa.github.io/posts/cloud-design-patterns/">
+    <h2 class="post-title">Cloud Design Patterns</h2>
+  </a>
+  <div class="post-entry">
+    
+      <p>Cloud Design Patterns  Прочитана в октябрь 2018г.
+ Cache-aside- если есть в кэше, читать из него, если нет, читать из бд и обновлять в кэше, хорошо работает если кэш обновлять через write-through
+Cache: read-through, write-through, write-behind
+При реализации обратить внимание:
+ Lifetime of cached data: выбрать время инвалидации исходя из характера работы с приложением. Кэшировать лучше редко-изменяемые данные Evict cache-вытеснение. Кэш ограничен по размеру и надо выбрать стратегию вытеснения. Возможно она для разных сущностей будет разная.</p>
+      <a href="https://drypa.github.io/posts/cloud-design-patterns/" class="post-read-more"
+        ></a
+      >
+    
+  </div>
+
+  <div class="postmeta">
+    <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Apr 2, 2022
+  
+</span>
+
+  </div>
+</article>
+
+      
+        <article class="post-preview">
+  <a href="https://drypa.github.io/posts/postgresql-worst-practices/">
+    <h2 class="post-title">PostgreSQL worst practices / Илья Космодемьянский (Data Egret)</h2>
+  </a>
+  <div class="post-entry">
+    
+      <p>PostgreSQL worst practices / Илья Космодемьянский (Data Egret) Ссылка видео
+ Смотрел в феврале 2019г.
+  Count(*) вам очень нужен, вам нужно 100500 счётчиков на странице, такой запрос простой и лёгкий для базы, приблизительная оценка из pg_catalog не точна Используйте ORM(вы-ж каждый день переключаетесь между СУБД, хранимки - скучно) Join-ам в базе не место(джойним на клиенте) schema-less рулит(id bigserial, extra jsonb) гибкость EAV(entity, attibute, value) - 3 таблички =&gt; 4(type) =&gt; назвать ядром и обернуть тысячами материализованных представлений много индексов использовать реплику вместо бэкапа использовать pg_dump вместо pg_basebackup а лучше свой бэкапный скрипт + сторонний софт не делайте тестовых восстановлений выключить autovacuum некогда не архивировать старые time series данные, сначала вставляем диски потом партиционируем не используйте slony мастер и реплика должны жить на разном железе и быть настроены по разному синхронная реплика в другой ДЦ - для отказоустойчивости никогда не использовать Foreign Keys самый правильный тип данных - text(конвертация текста в даты или Ip) самим написать патч для Postgres и сразу в продакшен Postgres любит длинные транзакции(например ходить во внешний сервис) Любые проблемы можно решить с помощью контейнеров Писать свои штуки( хранимки на C, свою очередь сообщений, свою ORM на plpgsql) не использовать exceptions(вместо них raise notice) а лучше suppress max_connections = 1000 и никогда не использовать pg_bouncer начинать настраивать с настроек оптимизатора(postgresql.</p>
+      <a href="https://drypa.github.io/posts/postgresql-worst-practices/" class="post-read-more"
+        ></a
+      >
+    
+  </div>
+
+  <div class="postmeta">
+    <span class="meta-post">
+  <em class="fa fa-calendar-alt"></em
+  >&nbsp;Apr 2, 2022
+  
+</span>
+
+  </div>
+</article>
+
+      
+        <article class="post-preview">
   <a href="https://drypa.github.io/posts/dba1-postgresql-administration/">
     <h2 class="post-title">DBA1. Администрирование PostgreSQL. Базовый курс</h2>
   </a>
@@ -158,63 +212,6 @@
     <span class="meta-post">
   <em class="fa fa-calendar-alt"></em
   >&nbsp;Mar 13, 2022
-  
-</span>
-
-  </div>
-</article>
-
-      
-        <article class="post-preview">
-  <a href="https://drypa.github.io/posts/the_perils_of_event_driven/">
-    <h2 class="post-title">Заметки по статье The Perils of Event-Driven: Eventual Consistency</h2>
-  </a>
-  <div class="post-entry">
-    
-      <p>The Perils of Event-Driven: Eventual Consistency Ссылка на оригинальную статью
- Прочитана в феврале 2021г.
- The first step for dealing with eventual consistency is not dealing with it at all.
-Перед применением сядь с бизнесом и определи какие именно данные могут быть немного не актуальными и допустимо-ли eventual consistency в принципе
-Также нужно выяснить кто ещё будет потреблять информацию - если какой-то сервис потребляет eventual consistency информацию предоставляемую рассматриваемым сервисом, то не будет-ли для потребителя это вести к ошибкам</p>
-      <a href="https://drypa.github.io/posts/the_perils_of_event_driven/" class="post-read-more"
-        ></a
-      >
-    
-  </div>
-
-  <div class="postmeta">
-    <span class="meta-post">
-  <em class="fa fa-calendar-alt"></em
-  >&nbsp;Apr 10, 2021
-  
-</span>
-
-  </div>
-</article>
-
-      
-        <article class="post-preview">
-  <a href="https://drypa.github.io/posts/release_it/">
-    <h2 class="post-title">Заметки по Nygard M.T. - Release It!</h2>
-  </a>
-  <div class="post-entry">
-    
-      <p>Release It!: Design and Deploy Production-Ready Software (Pragmatic Programmers)  Прочитана в апреле 2018г.
- Design and architecture decisions are also financial decisions.
-Manage perceptions after a incident Is as important as managing the incident itself.
-A highly stable design usually costs the same to implement as an unstable one.
-Every integration point will fail in some way.
-Блокировки потоков из пула могут приводить к дедлокам. Желательно новые библиотеки тестировать в несколько потоков, что бы можно было бороться с проблемами в библиотеке снаружи.</p>
-      <a href="https://drypa.github.io/posts/release_it/" class="post-read-more"
-        ></a
-      >
-    
-  </div>
-
-  <div class="postmeta">
-    <span class="meta-post">
-  <em class="fa fa-calendar-alt"></em
-  >&nbsp;Apr 3, 2021
   
 </span>
 
