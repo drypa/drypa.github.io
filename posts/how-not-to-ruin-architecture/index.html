@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ru-ru">
+  <head>
+    <meta charset="utf-8" />
+<title>Евгений Кривошеев —  Как не угробить архитектуру сразу же</title>
+
+
+  
+
+
+  
+  <script data-goatcounter="https://drypa.github.io/count"
+          async src="//drypa.github.io/count.js"></script>
+
+
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link
+  rel="alternate"
+  type="application/rss+xml"
+  href="https://drypa.github.io/index.xml"
+  title="Andrey Krasavin Home Page"
+/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Евгений Кривошеев —  Как не угробить архитектуру сразу же"/>
+<meta name="twitter:description" content="Евгений Кривошеев — Как не угробить архитектуру сразу же Ссылка видео
+ Смотрел в ноябре 2019г.
+ Архитектура- решения, которые принимаются в проекте.
+Необходимо определить, что может нанести максимальный урон проекту этим и заниматься. Можно-ли конкретное решение отложить или отдать студенту - ответ на этот вопрос определяет является ли решение архитектурным.
+Чтобы понять сложную систему её надо рассматривать с разных точек зрения:
+ Физическая(развертывание)/логическая(классы) проекции Статика(структура)/динамика (алгоритм) etc.  На диаграмме классов отражается:"/>
+
+
+
+<link rel="stylesheet" href="https://drypa.github.io/fontawesome/css/all.min.css" />
+
+<link
+  id="dark-mode-theme"
+  rel="stylesheet"
+  href="https://drypa.github.io/css/dark.css"
+/>
+
+<script>
+  var darkTheme = document.getElementById('dark-mode-theme')
+  var storedTheme = localStorage.getItem('dark-mode-storage')
+  if (storedTheme === 'dark') {
+    darkTheme.disabled = false
+  } else if (storedTheme === 'light') {
+    darkTheme.disabled = true
+  }
+</script>
+
+<script src="https://drypa.github.io/js/main.bundle.js"></script>
+<script src="https://drypa.github.io/js/instantpage.min.js" type="module" defer></script>
+<meta name="generator" content="Hugo 0.96.0" />
+  </head>
+  <body>
+    
+  
+
+
+
+
+  <header>
+    <nav class="navbar">
+  <div class="nav">
+    
+      <a href="https://drypa.github.io/" class="nav-logo">
+        <img
+          src="https://drypa.github.io/images/icon.png"
+          width="50"
+          height="50"
+          alt="Logo"
+        />
+      </a>
+    
+
+    <ul class="nav-links">
+      
+        
+          <li>
+            <a href="/about/" id="About"
+              ><em class="fas fa-user fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/tags" id="Tags"
+              ><em class="fas fa-tag fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/categories" id="Category"
+              ><em class="fas fa-folder-open fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/search" id="Search"
+              ><em class="fas fa-search fa-lg"></em
+            ></a>
+          </li>
+          
+      
+        
+          <li>
+            <a href="/archives" id="Archives"
+              ><em class="fas fa-archive fa-lg"></em
+            ></a>
+          </li>
+          
+      
+    </ul>
+  </div>
+</nav>
+
+    <div class="intro-header">
+      <div class="container">
+        <div class="posts-heading">
+          
+            <h1>
+              Евгений Кривошеев —  Как не угробить архитектуру сразу же
+            </h1>
+          
+          
+        </div>
+      </div>
+    </div>
+  </header>
+  
+
+    
+  <div class="container" role="main">
+    <article class="article" class="blog-post">
+      
+  <h1 id="евгений-кривошеев--как-не-угробить-архитектуру-сразу-же">Евгений Кривошеев —  Как не угробить архитектуру сразу же</h1>
+<p><a href="https://www.youtube.com/watch?v=_Kex5hwGE-w">Ссылка видео</a></p>
+<blockquote>
+<p>Смотрел в ноябре 2019г.</p>
+</blockquote>
+<p>Архитектура- решения, которые принимаются в проекте.</p>
+<p>Необходимо определить, что может нанести максимальный урон проекту этим и заниматься.
+Можно-ли конкретное решение отложить или отдать студенту - ответ на этот вопрос определяет является ли решение архитектурным.</p>
+<p>Чтобы понять сложную систему её надо рассматривать с разных точек зрения:</p>
+<ul>
+<li>Физическая(развертывание)/логическая(классы) проекции</li>
+<li>Статика(структура)/динамика (алгоритм)</li>
+<li>etc.</li>
+</ul>
+<p>На диаграмме классов отражается:</p>
+<ul>
+<li>Вариативность</li>
+<li>Возможность расширения</li>
+<li>API</li>
+<li>Есть-ли состояние</li>
+<li>Инкапсуляция частей системы</li>
+</ul>
+<p>На sequence диаграммах:</p>
+<ul>
+<li>Структура</li>
+<li>Ответственности компонентов</li>
+<li>Порядок действий</li>
+<li>async/sync</li>
+<li>Гранулярность операций(на сколько операции крупные)</li>
+</ul>
+<p>На диаграмме развертывания:</p>
+<ul>
+<li>Масштабируемость</li>
+<li>Отказоустойчивость</li>
+<li>etc.</li>
+</ul>
+<p>Архитектура-функция от:</p>
+<ul>
+<li>Внешние функциональные требования и атрибуты качества</li>
+<li>Внутренние функциональные требования и атрибуты качества</li>
+<li>Персональный опыт</li>
+<li>Внутри корпоративные гайдлайны и стайл гайды</li>
+<li>Доверия к команде</li>
+<li>Структура компании/команды</li>
+<li>Количества и качества ресурсов(время, деньги, аутсорсеры, риски)</li>
+<li>Внутри корпоративные отношения</li>
+<li>Etc.</li>
+</ul>
+<p>Не очень критичные решения нужно делегировать и доверять команде и/или откладывать.</p>
+
+
+
+
+      
+    </article>
+    
+    
+      
+
+    
+  </div>
+
+    <footer>
+  
+
+<div class="social-icons">
+  
+    
+    
+      
+      <a href="link%20to%20social%20media" name="name of social media">
+        <em class="A icon from https://fontawesome.com/"></em>
+      </a>
+    
+  
+
+  
+</div>
+
+
+  
+  <div class="container">
+    <p class="credits copyright">
+      <a href="https://drypa.github.io/about">Andrey Krasavin</a>
+      &nbsp;&copy;
+      2022
+      
+        &nbsp;/&nbsp;
+        <a href="https://drypa.github.io/">Andrey Krasavin Home Page</a>
+      
+      &nbsp;&ndash;&nbsp;
+      <em class="fas fa-moon" id="dark-mode-toggle"></em>
+    </p>
+
+    <p class="credits theme-by">
+       <a href="https://gohugo.io">Hugo</a>&nbsp;
+      
+      <a href="https://github.com/matsuyoshi30/harbor">Harbor</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
+</html>
